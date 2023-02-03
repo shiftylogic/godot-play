@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgbk4akng1oe7"]
+
+[ext_resource type="Script" path="res://addons/sl-debug/debug-overlay.gd" id="1_17erj"]
+[ext_resource type="Script" path="res://scenes/game/game.gd" id="1_w73u2"]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_w73u2")
+
+[node name="DebugOverlay" type="VBoxContainer" parent="."]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 331.0
+grow_vertical = 2
+script = ExtResource("1_17erj")
