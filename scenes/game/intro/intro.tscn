@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://n5h4evkfim2m"]
+
+[ext_resource type="Script" path="res://scenes/game/intro/intro.gd" id="1_7nni5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7ep8w"]
+font_size = 24
+
+[node name="intro" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_7nni5")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Status" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -37.5
+offset_top = -26.0
+offset_right = 37.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Loading..."
+label_settings = SubResource("LabelSettings_7ep8w")
+horizontal_alignment = 1
