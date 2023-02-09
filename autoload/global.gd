@@ -20,40 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-extends Control
-
-
-#########################################
-#
-# Signals
-#
-
-
-#########################################
-#
-# Enums & Constants
-#
-
-
-#########################################
-#
-# Exported properties
-#
-
-
-#########################################
-#
-# Private variables
-#
-
-
-#########################################
-#
-# Overrides (_init, _ready, others)
-#
-
-func _ready():
-    pass
+extends Node
 
 
 #########################################
@@ -61,16 +28,6 @@ func _ready():
 # Public methods
 #
 
-
-#########################################
-#
-# Private methods
-#
-
-
-#########################################
-#
-# Event handlers
-#
-
-
+func report_error_terminate( tag: String, err: String ) -> void:
+    print( "[%s] Terminating due to unrecoverable error: %s" % [tag, err] )
+    get_tree().quit( -1 )

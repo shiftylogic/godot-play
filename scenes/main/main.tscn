@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bweq0vsa66okh"]
+[gd_scene load_steps=3 format=3 uid="uid://bweq0vsa66okh"]
 
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_3rjij"]
+[ext_resource type="Script" path="res://addons/scene-changer/scene-changer.gd" id="2_ebslt"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -10,6 +11,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3rjij")
+
+[node name="SceneChanger" type="ColorRect" parent="."]
+layout_mode = 0
+script = ExtResource("2_ebslt")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -42,3 +47,4 @@ layout_mode = 2
 text = "Quit to Desktop"
 
 [connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_exit"]

@@ -1,11 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://f2p25i0necvy"]
-
-[ext_resource type="Script" path="res://scenes/loading/loading.gd" id="1_3xr86"]
+[gd_scene load_steps=2 format=3 uid="uid://b8hdm2s18mmfc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bitay"]
 font_size = 24
 
-[node name="Loading" type="Control"]
+[node name="Transition" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,7 +12,6 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource("1_3xr86")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1

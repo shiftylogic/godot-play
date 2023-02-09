@@ -28,6 +28,8 @@ extends Control
 # Private variables
 #
 
+@onready var _transition: SceneChanger = $SceneChanger
+
 
 #########################################
 #
@@ -36,4 +38,4 @@ extends Control
 
 func _ready():
     await get_tree().create_timer( 4.0 ).timeout
-    Game.change_scene( "res://scenes/main/main.tscn", false )
+    _transition.goto( "res://scenes/main/main.tscn" )

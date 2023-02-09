@@ -34,6 +34,8 @@ extends Control
 # Enums & Constants
 #
 
+const Loader := preload( "res://scenes/transition/transition.tscn" )
+
 
 #########################################
 #
@@ -46,14 +48,13 @@ extends Control
 # Private variables
 #
 
+@onready var _changer: SceneChanger  = $SceneChanger
+
 
 #########################################
 #
 # Overrides (_init, _ready, others)
 #
-
-func _ready():
-    pass
 
 
 #########################################
@@ -68,7 +69,7 @@ func _ready():
 #
 
 func _on_start():
-    Game.change_scene( "res://scenes/hud/hud.tscn" )
+    _changer.goto( "res://scenes/hud/hud.tscn", Loader.instantiate() )
 
 func _on_exit():
-    Game.quit()
+    get_tree().quit()
