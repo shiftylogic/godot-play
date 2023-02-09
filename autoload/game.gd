@@ -25,25 +25,12 @@ extends Node
 
 #########################################
 #
-# Signals
-#
-
-
-#########################################
-#
 # Enums & Constants
 #
 
-const MINIMUM_INTRO_DELAY: float = 2.0      # seconds
 const MINIMUM_LOADING_DELAY: float = 1.0    # seconds
 
-const LoadingScene := preload( "./loading/loading.tscn" )
-
-
-#########################################
-#
-# Exported properties
-#
+const LoadingScene := preload( "res://scenes/loading/loading.tscn" )
 
 
 #########################################
@@ -51,10 +38,8 @@ const LoadingScene := preload( "./loading/loading.tscn" )
 # Private variables
 #
 
-@onready var _loader = preload( "./loader.gd" ).new()
-
-var _active: Node
-
+@onready var _loader = preload( "res://utils/loader.gd" ).new()
+@onready var _root = Node.new()
 
 
 #########################################
@@ -63,19 +48,17 @@ var _active: Node
 #
 
 func _ready():
-    add_child( _loader )
     _loader.connect( "resource_error", _report_error_terminate )
     _loader.connect( "resource_ready", _swap_to_scene_from_intro, CONNECT_ONE_SHOT )
 
-    # On game startup, the "intro" screen is running while we prepare the
-    # main menu scene. We will then swap out the "intro" with a generic
-    # loading screen for future scene changes.
-    _active = $Main/Intro
-    _loader.load_resource( "res://scenes/main-menu/main-menu.tscn" )
+    add_child( _loader )
+    add_child( _root )
 
-    # DELETE ME
-    await get_tree().create_timer( 7.0 ).timeout
-    change_scene( "res://scenes/hud/hud.tscn" )
+    # On game startup, the "intro" screen is running while we prepare the
+    # main scene. We will then swap out the "intro" with a generic loading
+    # screen for future scene changes.
+    _root.add_child( preload("res://scenes/intro/intro.tscn").instantiate() )
+    print( "Game ready!" )
 
 
 #########################################
@@ -83,17 +66,48 @@ func _ready():
 # Public methods
 #
 
-func change_scene( scene: String ) -> void:
-    # Remove any existing scene that is rendering
-    if _active != null:
-        _active.queue_free()
-
-    # Swap to loading screen
-    _active = LoadingScene.instantiate()
-    $Main.add_child( _active )
+func change_scene( scene: String, show_loading = true ) -> void:
+    if show_loading:
+        # Swap to loading screen
+        _transition_scene( LoadingScene.instantiate() )
 
     # Start the next scene / resource loading
     _loader.load_resource( scene )
+
+
+func quit() -> void:
+    get_tree().quit()
+
+
+#########################################
+#
+# Private methods
+#
+
+func _close_curtain() -> Node:
+    var curtain := ColorRect.new()
+    curtain.set_anchors_preset( Control.PRESET_FULL_RECT )
+    curtain.modulate = Color(0, 0, 0, 0)
+
+    add_child(curtain)
+    await get_tree().create_tween().tween_property( curtain, "modulate", Color.BLACK, 0.4 ).finished
+
+    return curtain
+
+
+func _transition_scene( scene: Node ) -> void:
+    assert( scene != null, "transition to invalid scene node" )
+
+    # Black out the active scene (by 'closing' the curtain)
+    var curtain: Node = await _close_curtain()
+
+    # Swap the scenes while we are blacked out.
+    _root.get_children().all( func (child: Node): child.queue_free() )
+    _root.add_child( scene )
+
+    # Bring the new scene back into visibility
+    await get_tree().create_tween().tween_property( curtain, "modulate", Color(0, 0, 0, 0), 0.4 ).finished
+    curtain.queue_free()
 
 
 #########################################
@@ -106,27 +120,23 @@ func _report_error_terminate( err: String ) -> void:
     get_tree().quit( -1 )
 
 
-func _swap_to_scene( scene: PackedScene, dt: float, min_delay: float ) -> void:
+func _swap_to_scene( scene: PackedScene, dt: float ) -> void:
     # Allow the "intro" to stay up for at least a couple seconds
-    var delay: float = min_delay - dt
+    var delay: float = MINIMUM_LOADING_DELAY - dt
     if delay > 0.0:
-        print_debug( "Delaying extra %.3f seconds" % delay )
+        # print_debug( "Delaying extra %.3f seconds" % delay )
         await get_tree().create_timer( delay ).timeout
 
-    # Remove the "active" scene (which should be the loading UI
-    _active.queue_free()
-
-    # Instantiate the new scene and display it.
-    _active = scene.instantiate()
-    $Main.add_child( _active )
+    # Instantiate the new scene and transition to it.
+    assert( scene.can_instantiate(), "loaded resource is not instantiatable" )
+    _transition_scene( scene.instantiate() )
 
 
 func _swap_to_scene_from_intro( scene: PackedScene, dt: float ) -> void:
     # Swap to the requested scene
     # This should happen *before* replacing the "intro".
-    _swap_to_scene( scene, dt, MINIMUM_INTRO_DELAY )
+    _swap_to_scene( scene, dt )
 
     # The "intro" screen is meant to only show once (at load time).
     # Swap out to the generic "loading" scene for future scene changes
-    # _loader = preload( "res://scenes/game/loading/loading.tscn" ).instantiate()
-    _loader.connect( "resource_ready", _swap_to_scene.bind( MINIMUM_LOADING_DELAY ) )
+    _loader.connect( "resource_ready", _swap_to_scene )

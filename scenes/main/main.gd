@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-extends "../loader.gd"
+extends Control
 
 
 #########################################
@@ -58,12 +58,6 @@ func _ready():
 
 #########################################
 #
-# Public methods
-#
-
-
-#########################################
-#
 # Private methods
 #
 
@@ -73,4 +67,8 @@ func _ready():
 # Event handlers
 #
 
+func _on_start():
+    Game.change_scene( "res://scenes/hud/hud.tscn" )
 
+func _on_exit():
+    Game.quit()

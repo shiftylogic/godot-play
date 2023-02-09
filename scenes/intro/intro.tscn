@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://04x8s3g51t8u"]
+[gd_scene load_steps=3 format=3 uid="uid://csyqg8p1xfo4f"]
 
-[ext_resource type="Script" path="res://scenes/game/intro/intro.gd" id="1_uwmwk"]
+[ext_resource type="Script" path="res://scenes/intro/intro.gd" id="1_7nni5"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_bitay"]
-font_size = 24
+[sub_resource type="LabelSettings" id="LabelSettings_7ep8w"]
+font_size = 48
 
 [node name="intro" type="Control"]
 layout_mode = 3
@@ -14,7 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource("1_uwmwk")
+script = ExtResource("1_7nni5")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -27,16 +27,17 @@ color = Color(0, 0, 0, 1)
 
 [node name="Status" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -37.5
-offset_top = -26.0
-offset_right = 37.5
+anchor_bottom = 0.5
+offset_left = -56.5
+offset_top = -18.5
+offset_right = 56.5
+offset_bottom = 18.5
 grow_horizontal = 2
-grow_vertical = 0
-text = "Loading the things..."
-label_settings = SubResource("LabelSettings_bitay")
+grow_vertical = 2
+text = "INTRO SCREEN"
+label_settings = SubResource("LabelSettings_7ep8w")
 horizontal_alignment = 1

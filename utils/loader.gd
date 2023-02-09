@@ -70,14 +70,14 @@ func _process( _delta: float ) -> void:
             resource_error.emit( ERROR_INVALID_STATE )
             _resource = ""
         ResourceLoader.THREAD_LOAD_IN_PROGRESS:
-            print_debug( "Load status (progress) [\"%s\"]" % _resource )
+            # print_debug( "Load status (progress) [\"%s\"]" % _resource )
             resource_progress.emit( progress[0] )
         ResourceLoader.THREAD_LOAD_FAILED:
             print_debug( "Load status (resource load failed) [\"{}\"]" % _resource )
             resource_error.emit( ERROR_RESOURCE_LOAD_FAILED )
             _resource = ""
         ResourceLoader.THREAD_LOAD_LOADED:
-            print_debug( "Load status (complete) [\"%s\"]" % _resource )
+            # print_debug( "Load status (complete) [\"%s\"]" % _resource )
             var resource = ResourceLoader.load_threaded_get( _resource )
             var dt: float = ( Time.get_ticks_msec() - _start ) / 1000.0
             resource_ready.emit( resource, dt )
