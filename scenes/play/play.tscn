@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dw080fvle7mfc"]
+
+[ext_resource type="Script" path="res://scenes/play/play.gd" id="1_tucbe"]
+
+[node name="Play" type="Node3D"]
+script = ExtResource("1_tucbe")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.761432, 0.425261, -0.489259, 0.383076, 0.313677, 0.868827, 0.522947, -0.848976, 0.0759359, -27.1834, 19.595, -5.99863)
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 4.1, 3, 12)
+
+[node name="Grid" type="Node3D" parent="."]

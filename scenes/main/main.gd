@@ -104,6 +104,7 @@ func _on_new_game():
 
 
 func _on_load_game():
+    _changer.goto( "res://scenes/play/play.tscn", _Loader.instantiate() )
     pass
 
 
