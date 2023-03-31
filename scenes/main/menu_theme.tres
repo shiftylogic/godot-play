@@ -1,0 +1,52 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://bnkbuwonw75xs"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_4he0x"]
+content_margin_left = 20.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+color = Color(0.160784, 0.160784, 0.160784, 1)
+grow_begin = -4.0
+grow_end = -4.0
+thickness = 5
+vertical = true
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_nhyxf"]
+content_margin_left = 20.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+color = Color(0.454902, 0.945098, 1, 1)
+grow_begin = -4.0
+grow_end = -4.0
+thickness = 5
+vertical = true
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ey1dy"]
+content_margin_left = 20.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+color = Color(0.494118, 0.494118, 0.494118, 1)
+grow_begin = -4.0
+grow_end = -4.0
+thickness = 5
+vertical = true
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ivyif"]
+content_margin_left = 20.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+color = Color(0.717647, 0.717647, 0.717647, 1)
+grow_begin = -4.0
+grow_end = -4.0
+thickness = 5
+vertical = true
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yi2t6"]
+
+[resource]
+Button/font_sizes/font_size = 24
+Button/styles/disabled = SubResource("StyleBoxLine_4he0x")
+Button/styles/focus = SubResource("StyleBoxLine_nhyxf")
+Button/styles/hover = SubResource("StyleBoxLine_nhyxf")
+Button/styles/normal = SubResource("StyleBoxLine_ey1dy")
+Button/styles/pressed = SubResource("StyleBoxLine_ivyif")
+TabContainer/styles/panel = SubResource("StyleBoxEmpty_yi2t6")

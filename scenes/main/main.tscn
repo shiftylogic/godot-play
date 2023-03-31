@@ -1,7 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://bweq0vsa66okh"]
+[gd_scene load_steps=10 format=3 uid="uid://bng2rlkogeh1j"]
 
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_3rjij"]
+[ext_resource type="Theme" uid="uid://bnkbuwonw75xs" path="res://scenes/main/menu_theme.tres" id="1_o2cnr"]
 [ext_resource type="Script" path="res://addons/scene-changer/scene-changer.gd" id="2_ebslt"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hlc65"]
+font_size = 48
+
+[sub_resource type="Gradient" id="Gradient_rlia0"]
+offsets = PackedFloat32Array(2.08165e-12, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ywix6"]
+gradient = SubResource("Gradient_rlia0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a18x0"]
+texture = SubResource("GradientTexture2D_ywix6")
+texture_margin_top = 5.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hgh40"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vb301"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -10,41 +29,272 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_o2cnr")
 script = ExtResource("1_3rjij")
 
 [node name="SceneChanger" type="ColorRect" parent="."]
 layout_mode = 0
 script = ExtResource("2_ebslt")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="BG" type="ColorRect" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 1
+color = Color(0, 0, 0, 1)
 
-[node name="Title" type="Label" parent="VBoxContainer"]
+[node name="SafeArea" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 80
+
+[node name="MainScreens" type="TabContainer" parent="SafeArea"]
 layout_mode = 2
-text = "Game"
-horizontal_alignment = 1
-vertical_alignment = 1
+tabs_visible = false
+
+[node name="MainMenu" type="HSplitContainer" parent="SafeArea/MainScreens"]
+layout_mode = 2
+split_offset = 116
+
+[node name="Options" type="VBoxContainer" parent="SafeArea/MainScreens/MainMenu"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="SafeArea/MainScreens/MainMenu/Options"]
+layout_mode = 2
+text = "Main Menu"
+label_settings = SubResource("LabelSettings_hlc65")
 uppercase = true
 
-[node name="Start" type="Button" parent="VBoxContainer"]
+[node name="TitleLine" type="HSeparator" parent="SafeArea/MainScreens/MainMenu/Options"]
+custom_minimum_size = Vector2(2.08165e-12, 40)
 layout_mode = 2
-text = "Start Game"
+theme_override_styles/separator = SubResource("StyleBoxTexture_a18x0")
 
-[node name="Quit" type="Button" parent="VBoxContainer"]
+[node name="Gap" type="HSeparator" parent="SafeArea/MainScreens/MainMenu/Options"]
+custom_minimum_size = Vector2(2.08165e-12, 40)
 layout_mode = 2
-text = "Quit to Desktop"
+theme_override_styles/separator = SubResource("StyleBoxEmpty_hgh40")
 
-[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start"]
-[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_exit"]
+[node name="New" type="Button" parent="SafeArea/MainScreens/MainMenu/Options"]
+layout_mode = 2
+text = "New Game"
+alignment = 0
+
+[node name="Load" type="Button" parent="SafeArea/MainScreens/MainMenu/Options"]
+layout_mode = 2
+text = "Load Game"
+alignment = 0
+
+[node name="Settings" type="Button" parent="SafeArea/MainScreens/MainMenu/Options"]
+layout_mode = 2
+text = "Settings
+"
+alignment = 0
+
+[node name="Filler" type="PanelContainer" parent="SafeArea/MainScreens/MainMenu/Options"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_vb301")
+
+[node name="Quit" type="Button" parent="SafeArea/MainScreens/MainMenu/Options"]
+layout_mode = 2
+text = "Exit
+"
+alignment = 0
+
+[node name="Filler" type="PanelContainer" parent="SafeArea/MainScreens/MainMenu"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_vb301")
+
+[node name="Settings" type="HSplitContainer" parent="SafeArea/MainScreens"]
+visible = false
+layout_mode = 2
+split_offset = 116
+
+[node name="Options" type="VBoxContainer" parent="SafeArea/MainScreens/Settings"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="SafeArea/MainScreens/Settings/Options"]
+layout_mode = 2
+text = "Settings"
+label_settings = SubResource("LabelSettings_hlc65")
+uppercase = true
+
+[node name="TitleLine" type="HSeparator" parent="SafeArea/MainScreens/Settings/Options"]
+custom_minimum_size = Vector2(2.08165e-12, 40)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxTexture_a18x0")
+
+[node name="Gap" type="HSeparator" parent="SafeArea/MainScreens/Settings/Options"]
+custom_minimum_size = Vector2(2.08165e-12, 40)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_hgh40")
+
+[node name="Game" type="Button" parent="SafeArea/MainScreens/Settings/Options"]
+layout_mode = 2
+text = "Game"
+alignment = 0
+
+[node name="Video" type="Button" parent="SafeArea/MainScreens/Settings/Options"]
+layout_mode = 2
+text = "Video"
+alignment = 0
+
+[node name="Audio" type="Button" parent="SafeArea/MainScreens/Settings/Options"]
+layout_mode = 2
+text = "Audio"
+alignment = 0
+
+[node name="Filler" type="PanelContainer" parent="SafeArea/MainScreens/Settings/Options"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_vb301")
+
+[node name="Back" type="Button" parent="SafeArea/MainScreens/Settings/Options"]
+layout_mode = 2
+text = "Back"
+alignment = 0
+
+[node name="Filler" type="PanelContainer" parent="SafeArea/MainScreens/Settings"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_vb301")
+
+[node name="GameSettings" type="HSplitContainer" parent="SafeArea/MainScreens"]
+visible = false
+layout_mode = 2
+split_offset = 116
+
+[node name="Options" type="VBoxContainer" parent="SafeArea/MainScreens/GameSettings"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="SafeArea/MainScreens/GameSettings/Options"]
+layout_mode = 2
+text = "Game Settings"
+label_settings = SubResource("LabelSettings_hlc65")
+uppercase = true
+
+[node name="TitleLine" type="HSeparator" parent="SafeArea/MainScreens/GameSettings/Options"]
+custom_minimum_size = Vector2(2.08165e-12, 40)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxTexture_a18x0")
+
+[node name="Gap" type="HSeparator" parent="SafeArea/MainScreens/GameSettings/Options"]
+custom_minimum_size = Vector2(2.08165e-12, 40)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_hgh40")
+
+[node name="Filler" type="PanelContainer" parent="SafeArea/MainScreens/GameSettings/Options"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_vb301")
+
+[node name="Back" type="Button" parent="SafeArea/MainScreens/GameSettings/Options"]
+layout_mode = 2
+text = "Back"
+alignment = 0
+
+[node name="Filler" type="PanelContainer" parent="SafeArea/MainScreens/GameSettings"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_vb301")
+
+[node name="VideoSettings" type="HSplitContainer" parent="SafeArea/MainScreens"]
+visible = false
+layout_mode = 2
+split_offset = 116
+
+[node name="Options" type="VBoxContainer" parent="SafeArea/MainScreens/VideoSettings"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="SafeArea/MainScreens/VideoSettings/Options"]
+layout_mode = 2
+text = "Video Settings"
+label_settings = SubResource("LabelSettings_hlc65")
+uppercase = true
+
+[node name="TitleLine" type="HSeparator" parent="SafeArea/MainScreens/VideoSettings/Options"]
+custom_minimum_size = Vector2(2.08165e-12, 40)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxTexture_a18x0")
+
+[node name="Gap" type="HSeparator" parent="SafeArea/MainScreens/VideoSettings/Options"]
+custom_minimum_size = Vector2(2.08165e-12, 40)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_hgh40")
+
+[node name="Filler" type="PanelContainer" parent="SafeArea/MainScreens/VideoSettings/Options"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_vb301")
+
+[node name="Back" type="Button" parent="SafeArea/MainScreens/VideoSettings/Options"]
+layout_mode = 2
+text = "Back"
+alignment = 0
+
+[node name="Filler" type="PanelContainer" parent="SafeArea/MainScreens/VideoSettings"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_vb301")
+
+[node name="AudioSettings" type="HSplitContainer" parent="SafeArea/MainScreens"]
+visible = false
+layout_mode = 2
+split_offset = 116
+
+[node name="Options" type="VBoxContainer" parent="SafeArea/MainScreens/AudioSettings"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="SafeArea/MainScreens/AudioSettings/Options"]
+layout_mode = 2
+text = "Audio Settings"
+label_settings = SubResource("LabelSettings_hlc65")
+uppercase = true
+
+[node name="TitleLine" type="HSeparator" parent="SafeArea/MainScreens/AudioSettings/Options"]
+custom_minimum_size = Vector2(2.08165e-12, 40)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxTexture_a18x0")
+
+[node name="Gap" type="HSeparator" parent="SafeArea/MainScreens/AudioSettings/Options"]
+custom_minimum_size = Vector2(2.08165e-12, 40)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_hgh40")
+
+[node name="Filler" type="PanelContainer" parent="SafeArea/MainScreens/AudioSettings/Options"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_vb301")
+
+[node name="Back" type="Button" parent="SafeArea/MainScreens/AudioSettings/Options"]
+layout_mode = 2
+text = "Back"
+alignment = 0
+
+[node name="Filler" type="PanelContainer" parent="SafeArea/MainScreens/AudioSettings"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_vb301")
+
+[connection signal="pressed" from="SafeArea/MainScreens/MainMenu/Options/New" to="." method="_on_new_game"]
+[connection signal="pressed" from="SafeArea/MainScreens/MainMenu/Options/Load" to="." method="_on_load_game"]
+[connection signal="pressed" from="SafeArea/MainScreens/MainMenu/Options/Settings" to="." method="_on_settings"]
+[connection signal="pressed" from="SafeArea/MainScreens/MainMenu/Options/Quit" to="." method="_on_exit"]
+[connection signal="pressed" from="SafeArea/MainScreens/Settings/Options/Game" to="." method="_on_settings_game"]
+[connection signal="pressed" from="SafeArea/MainScreens/Settings/Options/Video" to="." method="_on_settings_video"]
+[connection signal="pressed" from="SafeArea/MainScreens/Settings/Options/Audio" to="." method="_on_settings_audio"]
+[connection signal="pressed" from="SafeArea/MainScreens/Settings/Options/Back" to="." method="_on_settings_back"]
+[connection signal="pressed" from="SafeArea/MainScreens/GameSettings/Options/Back" to="." method="_on_settings_sub_back"]
+[connection signal="pressed" from="SafeArea/MainScreens/VideoSettings/Options/Back" to="." method="_on_settings_sub_back"]
+[connection signal="pressed" from="SafeArea/MainScreens/AudioSettings/Options/Back" to="." method="_on_settings_sub_back"]

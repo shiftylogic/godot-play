@@ -72,7 +72,7 @@ func _process( _delta: float ) -> void:
         ResourceLoader.THREAD_LOAD_INVALID_RESOURCE:
             Global.report_error_terminate( "SceneChanger", "invalid resource [%s]" % _scene )
         ResourceLoader.THREAD_LOAD_IN_PROGRESS:
-            print( "Load status (progress) [\"%s\"]" % _scene )
+            print( "Load status (progress) [\"%s\"]: %3.2f" % [_scene, progress[0] * 100.0] )
             # TODO: Send progress update to "loading" screen
         ResourceLoader.THREAD_LOAD_FAILED:
             Global.report_error_terminate( "SceneChanger", "resource load failure [%s]" % _scene )

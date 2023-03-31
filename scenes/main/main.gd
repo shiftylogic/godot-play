@@ -34,7 +34,15 @@ extends Control
 # Enums & Constants
 #
 
-const Loader := preload( "res://scenes/transition/transition.tscn" )
+const _Loader := preload( "res://scenes/transition/transition.tscn" )
+
+enum _Screens {
+    MAIN = 0,
+    SETTINGS = 1,
+    GAME_SETTINGS = 2,
+    VIDEO_SETTINGS = 3,
+    AUDIO_SETTINGS = 4,
+}
 
 
 #########################################
@@ -49,6 +57,7 @@ const Loader := preload( "res://scenes/transition/transition.tscn" )
 #
 
 @onready var _changer: SceneChanger  = $SceneChanger
+@onready var _screens: TabContainer = $SafeArea/MainScreens
 
 
 #########################################
@@ -56,11 +65,33 @@ const Loader := preload( "res://scenes/transition/transition.tscn" )
 # Overrides (_init, _ready, others)
 #
 
+func _ready() -> void:
+    _ensure_focus.call_deferred( _Screens.MAIN )
+
+
+func _input( ev: InputEvent ):
+    if ev.is_action_pressed( "ui_cancel" ):
+        _switch_to_screen( _Screens.MAIN )
+
 
 #########################################
 #
 # Private methods
 #
+
+func _ensure_focus( screen: _Screens ) -> void:
+    match screen:
+        _Screens.MAIN: ($SafeArea/MainScreens/MainMenu/Options/New as Control).grab_focus()
+        _Screens.SETTINGS: ($SafeArea/MainScreens/Settings/Options/Game as Control).grab_focus()
+        _: print( "[WARN] Focus on screen index %d not specified" % screen )
+
+
+func _switch_to_screen( screen: _Screens ) -> void:
+    var index: int = screen
+    assert( index >= 0 and index < _screens.get_child_count(), "screen index out of range" )
+
+    _screens.current_tab = index
+    _ensure_focus( screen )
 
 
 #########################################
@@ -68,8 +99,37 @@ const Loader := preload( "res://scenes/transition/transition.tscn" )
 # Event handlers
 #
 
-func _on_start():
-    _changer.goto( "res://scenes/hud/hud.tscn", Loader.instantiate() )
+func _on_new_game():
+    _changer.goto( "res://scenes/hud/hud.tscn", _Loader.instantiate() )
+
+
+func _on_load_game():
+    pass
+
+
+func _on_settings():
+    _switch_to_screen( _Screens.SETTINGS )
+
 
 func _on_exit():
     get_tree().quit()
+
+
+func _on_settings_game():
+    _switch_to_screen( _Screens.GAME_SETTINGS )
+
+
+func _on_settings_video():
+    _switch_to_screen( _Screens.VIDEO_SETTINGS )
+
+
+func _on_settings_audio():
+    _switch_to_screen( _Screens.AUDIO_SETTINGS )
+
+
+func _on_settings_back():
+    _switch_to_screen( _Screens.MAIN )
+
+
+func _on_settings_sub_back():
+    _switch_to_screen( _Screens.SETTINGS )
