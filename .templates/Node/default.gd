@@ -31,6 +31,11 @@ extends _BASE_
 # Signals
 #
 
+#########################################
+#
+# Preloaded assets (scenes, resources, etc)
+#
+
 
 #########################################
 #
