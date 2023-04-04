@@ -37,5 +37,5 @@ extends Control
 #
 
 func _ready():
-    await get_tree().create_timer( 4.0 ).timeout
-    _transition.goto( "res://scenes/main/main.tscn" )
+    await get_tree().create_timer( Constants.INTRO_DELAY ).timeout
+    _transition.goto( Constants.START_SCENE )

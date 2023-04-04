@@ -20,72 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-extends StaticBody3D
+extends Node
 
 
-#########################################
-#
-# Signals
-#
-
-#########################################
-#
-# Preloaded assets (scenes, resources, etc)
-#
-
-const _NORMAL_MATERIAL := preload( "res://scenes/play/normal.tres" )
-const _HIGHLIGHT_MATERIAL := preload( "res://scenes/play/highlight.tres" )
-
-
-#########################################
-#
-# Enums & Constants
-#
-
-
-#########################################
-#
-# Exported properties
-#
-
-
-#########################################
-#
-# Private variables
-#
-
-@onready var _model: Node3D = $"Model/mergedBlocks(Clone)"
-
-
-#########################################
-#
-# Overrides (_init, _ready, others)
-#
-
-func _ready():
-    _model.material_override = _NORMAL_MATERIAL
-    pass
-
-
-#########################################
-#
-# Public methods
-#
-
-
-#########################################
-#
-# Private methods
-#
-
-
-#########################################
-#
-# Event handlers
-#
-
-func _on_mouse_enter():
-    _model.material_override = _HIGHLIGHT_MATERIAL
-
-func _on_mouse_exit():
-    _model.material_override = _NORMAL_MATERIAL
+const INTRO_DELAY := 0.5  # 4.0    # Seconds
+const START_SCENE := "res://scenes/play2/play.tscn"     # const START_SCENE := "res://scenes/main/main.tscn"

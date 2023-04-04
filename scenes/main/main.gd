@@ -31,10 +31,16 @@ extends Control
 
 #########################################
 #
-# Enums & Constants
+# Preloaded assets (scenes, resources, etc)
 #
 
 const _Loader := preload( "res://scenes/transition/transition.tscn" )
+
+
+#########################################
+#
+# Enums & Constants
+#
 
 enum _Screens {
     MAIN = 0,

@@ -25,6 +25,14 @@ extends Node3D
 
 #########################################
 #
+# Preloaded assets (scenes, resources, etc)
+#
+
+const _Hex := preload( "res://scenes/play/tile.tscn" )
+
+
+#########################################
+#
 # Signals
 #
 
@@ -35,8 +43,6 @@ extends Node3D
 #
 
 const _TILE_SIZE := 1.0
-
-const _Hex := preload( "res://scenes/play/tile.tscn" )
 
 
 #########################################
