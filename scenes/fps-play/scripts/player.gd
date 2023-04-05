@@ -36,31 +36,46 @@ const _LOOK_LIMIT = deg_to_rad( 89 )
 # Exported properties
 #
 
-@export_category( "Gamepad" )
-@export var gamepad_sensitivity_curve: Curve
-@export_range( 1.0, 5.0, 0.5 ) var gamepad_sensitivity := 3.0
-
-@export_category( "Keyboard / Mouse" )
-@export_range( 0.01, 0.05, 0.5 )
-var mouse_sensitivity := 0.1
-
 @export_category( "Character" )
-@export_range( 0.0, 20.0, 0.25 )
-var walk_speed := 5.0
+@export var head: Node3D
 
-@export_range( 0.0, 50.0, 0.25 )
-var sprint_speed := 10.0
+@export_group( "Tuning" )
+@export_range( 0.0, 100.0, 0.5 ) var walk_speed: float = 5.0
+@export_range( 0.0, 100.0, 0.5 ) var sprint_speed: float = 10.0
+@export_range( 0.0, 100.0, 0.5 ) var jump_velocity: float = 5.5
 
-@export_range( 0.0, 100.0, 0.25 )
-var jump_velocity := 4.5
+@export_group( "Input Actions" )
+@export_subgroup( "Movement" )
+@export var forward: StringName = &"forward"
+@export var backward: StringName = &"backward"
+@export var strafe_left: StringName = &"left"
+@export var strafe_right: StringName = &"right"
+
+@export_subgroup( "Look" )
+@export var look_left: StringName = &"look_left"
+@export var look_right: StringName = &"look_right"
+@export var look_up: StringName = &"look_up"
+@export var look_down: StringName = &"look_down"
+
+@export_subgroup( "Actions" )
+@export var jump: StringName = &"jump"
+@export var sprint: StringName = &"sprint"
+
+
+@export_category( "Tuning" )
+
+@export_group( "Gamepad" )
+@export_range( 0.0, 10.0, 0.5 ) var gamepad_sensitivity: float = 3.0
+@export var gamepad_sensitivity_curve: Curve
+
+@export_group( "Mouse" )
+@export_range( 0.0, 1.0, 0.05 ) var mouse_sensitivity: float = 0.1
 
 
 #########################################
 #
 # Private variables
 #
-
-@onready var _head: Node3D = $Head
 
 var _gravity = ProjectSettings.get_setting( "physics/3d/default_gravity" )
 
@@ -69,6 +84,19 @@ var _gravity = ProjectSettings.get_setting( "physics/3d/default_gravity" )
 #
 # Overrides (_init, _ready, others)
 #
+
+func _init():
+    _check_action( forward, "forward" )
+    _check_action( backward, "backward" )
+    _check_action( strafe_left, "strafe_left" )
+    _check_action( strafe_right, "strafe_right" )
+    _check_action( jump, "jump" )
+    _check_action( sprint, "sprint" )
+    _check_action( look_left, "look_left" )
+    _check_action( look_right, "look_right" )
+    _check_action( look_up, "look_up" )
+    _check_action( look_down, "look_down" )
+
 
 func _input( event: InputEvent ):
     if event is InputEventMouseMotion:
@@ -86,33 +114,30 @@ func _physics_process( dt: float ):
 # Private methods
 #
 
-func _handle_controller_look():
-    var look_dir := Input.get_vector( "look_left", "look_right", "look_up", "look_down" )
-    var signs := Vector2( sign( look_dir.x ), sign( look_dir.y ) )
+func _camera_rotate( v: Vector2, sensitivity: float ):
+    rotate_y( deg_to_rad( -v.x * sensitivity ) )
+    head.rotate_x( deg_to_rad( -v.y * sensitivity ) )
+    head.rotation.x = clamp( head.rotation.x, -_LOOK_LIMIT, _LOOK_LIMIT )
 
-    look_dir = look_dir.abs()
-    look_dir.x = gamepad_sensitivity_curve.sample_baked( look_dir.x )
-    look_dir.y = gamepad_sensitivity_curve.sample_baked( look_dir.y )
-    look_dir *= signs
+
+func _check_action( action: StringName, tag: String ):
+    if not ProjectSettings.has_setting( "input/%s" % action ):
+        print_debug( "input '%s' for %s action is not a defined input mapping" % [ action, tag ] )
+
+
+func _handle_controller_look():
+    var look_dir := Input.get_vector( look_left, look_right, look_up, look_down )
+    var final_dir := look_dir.abs()
+    final_dir.x = gamepad_sensitivity_curve.sample_baked( final_dir.x )
+    final_dir.y = gamepad_sensitivity_curve.sample_baked( final_dir.y )
+    final_dir *= Vector2( sign( look_dir.x ), sign( look_dir.y ) )
 
     _camera_rotate( look_dir, gamepad_sensitivity )
 
 
-func _camera_rotate( v: Vector2, sensitivity: float ):
-    rotate_y( deg_to_rad( -v.x * sensitivity ) )
-    _head.rotate_x( deg_to_rad( -v.y * sensitivity ) )
-    _head.rotation.x = clamp( _head.rotation.x, -_LOOK_LIMIT, _LOOK_LIMIT )
-
-
 func _handle_movement( dt: float ):
-    if not is_on_floor():
-        velocity.y -= _gravity * dt
-
-    if Input.is_action_just_pressed( "jump" ) and is_on_floor():
-        velocity.y = jump_velocity
-
-    var speed := sprint_speed if Input.is_action_pressed( "sprint" ) and is_on_floor() else walk_speed
-    var input_dir := Input.get_vector( "left", "right", "forward", "backward" )
+    var speed := sprint_speed if is_on_floor() and Input.is_action_pressed( sprint ) else walk_speed
+    var input_dir := Input.get_vector( strafe_left, strafe_right, forward, backward )
     var direction := ( transform.basis * Vector3( input_dir.x, 0, input_dir.y ) ).normalized()
 
     if direction:
@@ -121,5 +146,11 @@ func _handle_movement( dt: float ):
     else:
         velocity.x = move_toward( velocity.x, 0, speed )
         velocity.z = move_toward( velocity.z, 0, speed )
+
+    if not is_on_floor():
+        velocity.y -= _gravity * dt
+
+    if is_on_floor() and Input.is_action_just_pressed( jump ):
+            velocity.y = jump_velocity
 
     move_and_slide()
