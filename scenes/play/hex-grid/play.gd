@@ -87,7 +87,7 @@ func _generate_grid():
     for x in range( grid_size ):
         var p := Vector2.ZERO
         p.x = x * _TILE_SIZE * cos( deg_to_rad( 30 ) )
-        p.y = 0 if x % 2 == 0 else _TILE_SIZE / 2
+        p.y = 0.0 if x % 2 == 0 else _TILE_SIZE / 2.0
 
         for y in range( grid_size ):
             var tile: Node3D = _Hex.instantiate()

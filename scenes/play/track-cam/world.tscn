@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=11 format=3 uid="uid://biurmmcqqquwm"]
 
 [ext_resource type="Environment" uid="uid://ban876n31x50q" path="res://scenes/play/track-cam/assets/env.tres" id="1_a8054"]
 [ext_resource type="Material" uid="uid://cf6pe4ml40lb3" path="res://scenes/play/track-cam/assets/materials/proto-surface.material" id="1_dwq4q"]

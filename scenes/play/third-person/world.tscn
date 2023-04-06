@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3]
+[gd_scene load_steps=16 format=3 uid="uid://2o3m6yu1vsny"]
 
 [ext_resource type="Environment" uid="uid://dq8agkus4mclr" path="res://scenes/play/first-person/assets/environment.tres" id="1_7teh2"]
 [ext_resource type="Material" uid="uid://cj0narspo0fhm" path="res://scenes/play/first-person/assets/materials/proto-surface.material" id="2_br1e8"]

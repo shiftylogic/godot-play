@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=4 format=3 uid="uid://cwpa8ongp5caf"]
 
 [ext_resource type="Script" path="res://scenes/play/hex-grid/play.gd" id="1_tucbe"]
 

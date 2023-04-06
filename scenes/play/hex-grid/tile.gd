@@ -54,7 +54,7 @@ const _HIGHLIGHT_MATERIAL := preload( "./highlight.tres" )
 # Private variables
 #
 
-@onready var _model: Node3D = $"Model/mergedBlocks(Clone)"
+@onready var _model: MeshInstance3D = $"Model/mergedBlocks(Clone)"
 
 
 #########################################
@@ -64,7 +64,6 @@ const _HIGHLIGHT_MATERIAL := preload( "./highlight.tres" )
 
 func _ready():
     _model.material_override = _NORMAL_MATERIAL
-    pass
 
 
 #########################################
@@ -86,6 +85,7 @@ func _ready():
 
 func _on_mouse_enter():
     _model.material_override = _HIGHLIGHT_MATERIAL
+
 
 func _on_mouse_exit():
     _model.material_override = _NORMAL_MATERIAL
