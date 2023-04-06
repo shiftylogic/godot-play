@@ -24,4 +24,4 @@ extends Node
 
 
 const INTRO_DELAY := 0.5  # 4.0    # Seconds
-const START_SCENE := "res://scenes/play2/play.tscn"     # const START_SCENE := "res://scenes/main/main.tscn"
+const START_SCENE := "res://scenes/main/main.tscn"
