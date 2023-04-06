@@ -1,8 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://bmgdwyxjd78an"]
+[gd_scene load_steps=11 format=3]
 
-[ext_resource type="Environment" uid="uid://ban876n31x50q" path="res://scenes/track-cam/assets/env.tres" id="1_a8054"]
-[ext_resource type="Material" uid="uid://cf6pe4ml40lb3" path="res://scenes/track-cam/assets/materials/proto-surface.material" id="1_dwq4q"]
-[ext_resource type="Script" path="res://scenes/track-cam/world.gd" id="1_ptuqp"]
+[ext_resource type="Environment" uid="uid://ban876n31x50q" path="res://scenes/play/track-cam/assets/env.tres" id="1_a8054"]
+[ext_resource type="Material" uid="uid://cf6pe4ml40lb3" path="res://scenes/play/track-cam/assets/materials/proto-surface.material" id="1_dwq4q"]
+[ext_resource type="Script" path="res://scenes/play/track-cam/world.gd" id="1_ptuqp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lph1t"]
 size = Vector3(100, 1, 100)
