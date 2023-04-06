@@ -1,0 +1,64 @@
+[gd_scene load_steps=11 format=3 uid="uid://bmgdwyxjd78an"]
+
+[ext_resource type="Environment" uid="uid://ban876n31x50q" path="res://scenes/track-cam/assets/env.tres" id="1_a8054"]
+[ext_resource type="Material" uid="uid://cf6pe4ml40lb3" path="res://scenes/track-cam/assets/materials/proto-surface.material" id="1_dwq4q"]
+[ext_resource type="Script" path="res://scenes/track-cam/world.gd" id="1_ptuqp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lph1t"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kp6e1"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hh4et"]
+albedo_color = Color(1, 0, 0, 1)
+metallic = 0.61
+roughness = 0.62
+emission = Color(0, 1, 0, 1)
+rim_enabled = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_d0gt4"]
+material = SubResource("StandardMaterial3D_hh4et")
+top_radius = 0.0
+bottom_radius = 1.0
+height = 5.0
+radial_segments = 16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ngxdv"]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_17rj3"]
+material = SubResource("StandardMaterial3D_ngxdv")
+radius = 0.25
+height = 0.5
+
+[sub_resource type="MultiMesh" id="MultiMesh_fjf0s"]
+transform_format = 1
+use_colors = true
+mesh = SubResource("SphereMesh_17rj3")
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_ptuqp")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_a8054")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -0.5, 2.08165e-12)
+
+[node name="Collider" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_lph1t")
+
+[node name="Model" type="MeshInstance3D" parent="Ground"]
+material_override = ExtResource("1_dwq4q")
+mesh = SubResource("BoxMesh_kp6e1")
+
+[node name="Observer" type="Camera3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 2.4663e-16, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 25, 25, 25)
+
+[node name="Origin" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.5, 2.08165e-12)
+mesh = SubResource("CylinderMesh_d0gt4")
+
+[node name="Anchors" type="MultiMeshInstance3D" parent="."]
+multimesh = SubResource("MultiMesh_fjf0s")
