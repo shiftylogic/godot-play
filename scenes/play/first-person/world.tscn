@@ -3,7 +3,7 @@
 [ext_resource type="Environment" uid="uid://dq8agkus4mclr" path="res://scenes/play/first-person/assets/environment.tres" id="1_rejch"]
 [ext_resource type="Material" uid="uid://cj0narspo0fhm" path="res://scenes/play/first-person/assets/materials/proto-surface.material" id="2_n2wl1"]
 [ext_resource type="Script" path="res://scenes/play/first-person/scripts/arch.gd" id="3_2lxmy"]
-[ext_resource type="PackedScene" path="res://scenes/play/first-person/player.tscn" id="4_52fsp"]
+[ext_resource type="PackedScene" uid="uid://mbnsgu30al7l" path="res://scenes/play/first-person/player.tscn" id="4_52fsp"]
 [ext_resource type="PackedScene" uid="uid://07ck0s7hmtoa" path="res://scenes/play/first-person/assets/models/arch.glb" id="5_e7pqy"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_t0nsc"]

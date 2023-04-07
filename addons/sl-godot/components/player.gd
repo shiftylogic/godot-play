@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 extends CharacterBody3D
+class_name Player3D
 
 
 #########################################
@@ -29,6 +30,7 @@ extends CharacterBody3D
 #
 
 const _LOOK_LIMIT = deg_to_rad( 89 )
+
 
 
 #########################################
@@ -72,12 +74,14 @@ const _LOOK_LIMIT = deg_to_rad( 89 )
 @export_range( 0.0, 1.0, 0.05 ) var mouse_sensitivity: float = 0.1
 
 
+
 #########################################
 #
 # Private variables
 #
 
 var _gravity = ProjectSettings.get_setting( "physics/3d/default_gravity" )
+
 
 
 #########################################
@@ -107,6 +111,7 @@ func _input( event: InputEvent ):
 func _physics_process( dt: float ):
     _handle_movement( dt )
     _handle_controller_look()
+
 
 
 #########################################

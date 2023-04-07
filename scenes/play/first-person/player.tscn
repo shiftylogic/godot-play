@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=6 format=3 uid="uid://mbnsgu30al7l"]
 
-[ext_resource type="Script" path="res://scenes/play/first-person/scripts/player.gd" id="1_7cikh"]
+[ext_resource type="Script" path="res://addons/sl-godot/components/player.gd" id="1_7cikh"]
 [ext_resource type="Curve" uid="uid://n65ddn02uhc5" path="res://scenes/play/first-person/assets/curves/inv_s.tres" id="2_05s3d"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_78gu1"]
