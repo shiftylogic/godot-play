@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://csyqg8p1xfo4f"]
+[gd_scene load_steps=4 format=3 uid="uid://b163kqrcrejr6"]
 
 [ext_resource type="Script" path="res://scenes/intro/intro.gd" id="1_7nni5"]
-[ext_resource type="Script" path="res://addons/scene-changer/scene-changer.gd" id="2_v0gdw"]
+[ext_resource type="Script" path="res://addons/sl-godot/components/scene-changer.gd" id="2_v0gdw"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7ep8w"]
 font_size = 48
@@ -19,6 +19,8 @@ script = ExtResource("1_7nni5")
 
 [node name="SceneChanger" type="ColorRect" parent="."]
 layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 script = ExtResource("2_v0gdw")
 
 [node name="ColorRect" type="ColorRect" parent="."]

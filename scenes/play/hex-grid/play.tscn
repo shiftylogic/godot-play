@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwpa8ongp5caf"]
+[gd_scene load_steps=4 format=3 uid="uid://cwpa8ongp5caf"]
 
 [ext_resource type="Script" path="res://scenes/play/hex-grid/play.gd" id="1_tucbe"]
+[ext_resource type="Script" path="res://addons/sl-godot/components/hex-grid.gd" id="2_xjjs1"]
+[ext_resource type="PackedScene" path="res://scenes/play/hex-grid/tile.tscn" id="3_s6hcc"]
 
 [node name="Play" type="Node3D"]
 script = ExtResource("1_tucbe")
@@ -12,3 +14,5 @@ transform = Transform3D(0.761432, 0.425261, -0.489259, 0.383076, 0.313677, 0.868
 transform = Transform3D(1, -5.95416e-16, 2.46629e-16, 2.4663e-16, 0.707106, 0.707106, -5.95416e-16, -0.707106, 0.707106, 2.08165e-12, 5, 5)
 
 [node name="Grid" type="Node3D" parent="."]
+script = ExtResource("2_xjjs1")
+tile = ExtResource("3_s6hcc")

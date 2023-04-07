@@ -106,7 +106,7 @@ func _switch_to_screen( screen: _Screens ) -> void:
 #
 
 func _on_new_game():
-    _changer.goto( "res://scenes/hud/hud.tscn", _Loader.instantiate() )
+    _changer.goto( "res://scenes/play/track-cam/world.tscn", _Loader.instantiate() )
 
 
 func _on_load_game():

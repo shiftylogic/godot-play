@@ -1,6 +1,6 @@
 # MIT License
 #
-# Copyright (c) 2023 Robert Anderson
+# Copyright (c) 2023-present Robert Anderson
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -30,11 +30,11 @@ class_name SceneChanger
 #
 
 @export_category( "Transition Settings" )
-@export var loading_scene: PackedScene
 @export_range( 0.0, 10.0, 0.1 ) var minimum_loading_seconds: float = 2.0
 
 @export_category( "Fade Settings" )
 @export_range( 0.0, 2.0, 0.1 ) var fade_delay: float = 0.4
+
 
 
 #########################################
@@ -45,6 +45,7 @@ class_name SceneChanger
 var _loader: Node = null
 var _scene: String = ""
 var _start: int = 0
+
 
 
 #########################################
@@ -82,6 +83,7 @@ func _process( _delta: float ) -> void:
             _swap_to_scene( resource, dt )
 
 
+
 #########################################
 #
 # Public methods
@@ -106,6 +108,7 @@ func goto( scene: String, loader: Node = null ) -> void:
     set_process( true )
 
 
+
 #########################################
 #
 # Private methods
@@ -120,7 +123,7 @@ func _fade_out() -> void:
 
 
 func _swap_to_scene( scene: PackedScene, dt: float ) -> void:
-    print( "Scene '%s' loaded in %.3f seconds" % [scene.resource_path, dt] )
+    print( "Scene '%s' loaded in %.3f seconds" % [ scene.resource_path, dt ] )
 
     # Resource is already loaded, no need to continue processing this node.
     set_process( false )

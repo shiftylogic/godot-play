@@ -20,42 +20,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-extends VBoxContainer
-class_name DebugOverlay
+extends Node
 
 
 #########################################
 #
-# Constants
+# Public methods
 #
 
-const _DebugGraph := preload("res://addons/sl-debug/debug-graph.gd")
+func clear_children( node: Node ) -> void:
+    for child in node.get_children():
+        child.queue_free()
 
 
-
-#########################################
-#
-# Overrides (_init, _ready, others)
-#
-
-func _ready() -> void:
-    _add_graph("FPS", Performance.TIME_FPS)
-    _add_graph("Frame Time", Performance.TIME_PROCESS, "s")
-    _add_graph("Buffer Memory", Performance.RENDER_BUFFER_MEM_USED, "B")
-    _add_graph("Texture Memory", Performance.RENDER_TEXTURE_MEM_USED, "B")
-    _add_graph("Video Memory", Performance.RENDER_VIDEO_MEM_USED, "B")
-    _add_graph("Static Memory", Performance.MEMORY_STATIC, "B")
-    _add_graph("Draw Calls", Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME)
-    _add_graph("Objects", Performance.OBJECT_COUNT)
-    _add_graph("Nodes", Performance.OBJECT_NODE_COUNT)
-
-
-
-#########################################
-#
-# Private methods
-#
-
-func _add_graph(title: String, monitor: Performance.Monitor, units: String= "") -> void:
-    var graph := _DebugGraph.new(title, monitor, units)
-    add_child(graph)
+func report_error_terminate( tag: String, err: String ) -> void:
+    print( "[%s] Terminating due to unrecoverable error: %s" % [tag, err] )
+    get_tree().quit( -1 )

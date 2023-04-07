@@ -1,6 +1,6 @@
 # MIT License
 #
-# Copyright (c) 2023 Robert Anderson
+# Copyright (c) 2023-present Robert Anderson
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +30,7 @@ extends Control
 
 const GRAPH_BG_COLOR := Color(0.0, 0.0, 0.0, 0.5)
 const GRAPH_COLOR := Color.BLUE
-const GRAPH_FONT := preload("res://addons/sl-debug/fira_sans_regular.ttf")
+const GRAPH_FONT := preload("./fira_sans_regular.ttf")
 const GRAPH_HEIGHT := 75
 const VISIBLE_SAMPLES := 100
 

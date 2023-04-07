@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://xlc6pgdusgvq"
-path="res://.godot/imported/fira_sans_regular.ttf-05c59b98e8297b4279a9ea1eddea4409.fontdata"
+path="res://.godot/imported/fira_sans_regular.ttf-7430a35b87ebd9293e4b9b98c14ceb78.fontdata"
 
 [deps]
 
-source_file="res://addons/sl-debug/fira_sans_regular.ttf"
-dest_files=["res://.godot/imported/fira_sans_regular.ttf-05c59b98e8297b4279a9ea1eddea4409.fontdata"]
+source_file="res://addons/sl-godot/components/debug/fira_sans_regular.ttf"
+dest_files=["res://.godot/imported/fira_sans_regular.ttf-7430a35b87ebd9293e4b9b98c14ceb78.fontdata"]
 
 [params]
 

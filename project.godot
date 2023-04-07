@@ -24,7 +24,7 @@ buses/default_bus_layout="res://assets/audio.tres"
 [autoload]
 
 Constants="*res://autoload/constants.gd"
-Global="*res://autoload/global.gd"
+Global="*res://addons/sl-godot/autoload/global.gd"
 
 [debug]
 
@@ -48,7 +48,7 @@ script/templates_search_path="res://.templates"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/sl-debug/plugin.cfg", "res://addons/scene-changer/plugin.cfg")
+enabled=PackedStringArray("res://addons/sl-godot/plugin.cfg")
 
 [filesystem]
 
