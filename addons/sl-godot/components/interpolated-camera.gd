@@ -25,6 +25,7 @@
 # Copyright © 2020-present Hugo Locurcio and contributors - MIT License
 #
 
+class_name InterpolatedCamera3D
 extends Camera3D
 
 

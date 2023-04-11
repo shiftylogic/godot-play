@@ -1,10 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://dk27aicfb4iut"]
+[gd_scene load_steps=16 format=3 uid="uid://b4f2rvvmnj0o3"]
 
 [ext_resource type="Environment" uid="uid://dq8agkus4mclr" path="res://scenes/play/first-person/assets/environment.tres" id="1_7teh2"]
 [ext_resource type="Material" uid="uid://cj0narspo0fhm" path="res://scenes/play/first-person/assets/materials/proto-surface.material" id="2_br1e8"]
 [ext_resource type="Script" path="res://scenes/play/third-person/scripts/arch.gd" id="3_2tdsi"]
 [ext_resource type="PackedScene" uid="uid://0yymwgnrk0fo" path="res://scenes/play/third-person/assets/models/arch.glb" id="3_xjo12"]
-[ext_resource type="Script" path="res://scenes/play/third-person/scripts/interpolated-camera.gd" id="4_j4xj5"]
+[ext_resource type="Script" path="res://addons/sl-godot/components/interpolated-camera.gd" id="4_j4xj5"]
 [ext_resource type="Script" path="res://addons/sl-godot/components/player.gd" id="5_m6ole"]
 [ext_resource type="Curve" uid="uid://b1b3flf7fuds3" path="res://scenes/play/third-person/assets/curves/inv_s.tres" id="7_vl3oe"]
 
