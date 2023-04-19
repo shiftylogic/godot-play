@@ -25,13 +25,19 @@ extends Node
 
 #########################################
 #
-# Public methods
+# Node helpers
 #
 
 func clear_children( node: Node ) -> void:
     for child in node.get_children():
         child.queue_free()
 
+
+
+#########################################
+#
+# Debugging / Reporting / Logging helpers
+#
 
 func report_error_terminate( tag: String, err: String ) -> void:
     print( "[%s] Terminating due to unrecoverable error: %s" % [tag, err] )

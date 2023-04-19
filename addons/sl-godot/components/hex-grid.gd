@@ -20,8 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-extends Node3D
 class_name HexGrid
+extends Node3D
 
 
 #########################################

@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://biurmmcqqquwm"]
+[gd_scene load_steps=12 format=3 uid="uid://biurmmcqqquwm"]
 
 [ext_resource type="Environment" uid="uid://ban876n31x50q" path="res://scenes/play/track-cam/assets/env.tres" id="1_a8054"]
 [ext_resource type="Material" uid="uid://cf6pe4ml40lb3" path="res://scenes/play/track-cam/assets/materials/proto-surface.material" id="1_dwq4q"]
 [ext_resource type="Script" path="res://scenes/play/track-cam/world.gd" id="1_ptuqp"]
+[ext_resource type="Script" path="res://addons/sl-godot/components/animated-camera-3d.gd" id="4_778om"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lph1t"]
 size = Vector3(100, 1, 100)
@@ -55,9 +56,30 @@ mesh = SubResource("BoxMesh_kp6e1")
 
 [node name="Observer" type="Camera3D" parent="."]
 transform = Transform3D(0.707107, -0.5, 0.5, 2.4663e-16, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 25, 25, 25)
+script = ExtResource("4_778om")
 
 [node name="Origin" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.5, 2.08165e-12)
+mesh = SubResource("CylinderMesh_d0gt4")
+
+[node name="Thing1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.5, 10)
+mesh = SubResource("CylinderMesh_d0gt4")
+
+[node name="Thing2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.571, 2.5, 30.8346)
+mesh = SubResource("CylinderMesh_d0gt4")
+
+[node name="Thing3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0221, 2.5, 20.7012)
+mesh = SubResource("CylinderMesh_d0gt4")
+
+[node name="Thing4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.3379, 2.5, -18.5983)
+mesh = SubResource("CylinderMesh_d0gt4")
+
+[node name="Thing5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.1428, 2.5, -34.0458)
 mesh = SubResource("CylinderMesh_d0gt4")
 
 [node name="Anchors" type="MultiMeshInstance3D" parent="."]

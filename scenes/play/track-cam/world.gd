@@ -100,10 +100,13 @@ const _CAMERA_TRANSITION_NAMES := [
 # Private variables
 #
 
-@onready var _anchors: MultiMeshInstance3D = $Anchors
-@onready var _observer: Camera3D = $Observer
+@onready var _anchor_visuals: MultiMeshInstance3D = $Anchors
+@onready var _observer: AnimatedCamera3D = $Observer
 
-var _moving: bool = false
+var _anchors: Array[Node3D] = []
+var _t_type_idx: int = 0
+var _e_type_idx: int = 0
+var _o_idx: int = 0
 
 
 #########################################
@@ -113,12 +116,47 @@ var _moving: bool = false
 
 func _ready():
     _generate_anchors()
-    _animate_camera( randi_range( 0, _ANCHOR_COUNT ) )
+#    _observer.look_at_from_position(
+#        _anchors.multimesh.get_instance_transform( 0 ).origin,
+#        Vector3.ZERO
+#    )
 
 
 func _process( _dt: float ):
-    if Input.is_key_pressed( KEY_SPACE ):
-        _animate_camera( randi_range( 0, _ANCHOR_COUNT ) )
+    if Input.is_action_just_pressed( "ui_left" ):
+        _e_type_idx = ( _e_type_idx + 1 ) % _CAMERA_EASING.size()
+        _observer.ease_type = _CAMERA_EASING[ _e_type_idx ]
+        print( "Switching ease type: %s" % _CAMERA_EASING_NAMES[ _e_type_idx ] )
+
+    if Input.is_action_just_pressed( "ui_up" ):
+        _t_type_idx = (_t_type_idx + 1) % _CAMERA_TRANSITIONS.size()
+        _observer.transition_type = _CAMERA_TRANSITIONS[ _t_type_idx ]
+        print( "Switching transition type: %s" % _CAMERA_TRANSITION_NAMES[ _t_type_idx ] )
+
+    if Input.is_action_just_pressed( "ui_down" ):
+        _o_idx = (_o_idx + 1) % 6
+        match _o_idx:
+            0: _observer.view_anchor = $Origin as Node3D
+            1: _observer.view_anchor = $Thing1 as Node3D
+            2: _observer.view_anchor = $Thing2 as Node3D
+            3: _observer.view_anchor = $Thing3 as Node3D
+            4: _observer.view_anchor = $Thing4 as Node3D
+            5: _observer.view_anchor = $Thing5 as Node3D
+
+    if Input.is_action_just_pressed( "ui_accept" ):
+        var idx := randi_range( 0, _ANCHOR_COUNT - 1 )
+        var duration := randf_range( 5.5, 10.0 )
+
+        print( "Selecting anchor #%d. Moving to (%.3f, %.3f, %.3f) over %.3f seconds." % [
+            idx,
+            _anchors[ idx ].global_position.x,
+            _anchors[ idx ].global_position.y,
+            _anchors[ idx ].global_position.z,
+            duration
+        ] )
+
+        _observer.transition_duration = duration
+        _observer.position_anchor = _anchors[ idx ]
 
 
 #########################################
@@ -127,7 +165,7 @@ func _process( _dt: float ):
 #
 
 func _generate_anchors():
-    var mm := _anchors.multimesh
+    var mm := _anchor_visuals.multimesh
     mm.instance_count = _ANCHOR_COUNT
 
     for idx in range( _ANCHOR_COUNT ):
@@ -137,38 +175,15 @@ func _generate_anchors():
             randf_range( _ANCHOR_HEIGHT_MIN, _ANCHOR_HEIGHT_MAX ),
             randf_range( _GROUND_REGION_MIN, _GROUND_REGION_MAX ),
         )
+        var xform := Transform3D( Basis.IDENTITY, pos )
         mm.set_instance_color( idx, col )
-        mm.set_instance_transform( idx, Transform3D( Basis(), pos ) )
+        mm.set_instance_transform( idx, xform )
 
+        var anchor := Node3D.new()
+        anchor.global_transform = xform
+        _anchors.append( anchor )
+        add_child( anchor )
 
-func _animate_camera( idx: int ):
-    if _moving:
-        return
-
-    _moving = true
-
-    var duration := randf_range( 1.0, 5.0 )
-    var easing = _CAMERA_EASING.pick_random()
-    var transition = _CAMERA_TRANSITIONS.pick_random()
-    print( "Animating in %.3f seconds using %s, %s" % [
-        duration,
-        _CAMERA_TRANSITION_NAMES[ transition ],
-        _CAMERA_EASING_NAMES[ easing ],
-    ] )
-
-    var t := create_tween()
-    t.set_ease( easing )
-    t.set_trans( transition )
-    t.tween_method(
-        func( pos: Vector3 ): _observer.look_at_from_position( pos, Vector3.ZERO ),
-        _observer.global_position,
-        _anchors.multimesh.get_instance_transform( idx ).origin,
-        duration
-    )
-
-    await t.finished
-    print( "  => complete." )
-    _moving = false
 
 
 #########################################

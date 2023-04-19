@@ -20,8 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-extends VBoxContainer
 class_name DebugOverlay
+extends VBoxContainer
 
 
 #########################################

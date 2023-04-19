@@ -20,8 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-extends CharacterBody3D
 class_name Player3D
+extends CharacterBody3D
 
 
 #########################################
